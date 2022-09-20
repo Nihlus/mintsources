@@ -186,6 +186,37 @@ class Deb822RepositoryInformation(_BaseRepositoryInformation):
 
         return repositories
 
+    @staticmethod
+    def from_line_information(value: LineRepositoryInformation) -> Deb822RepositoryInformation:
+        """
+        Converts a :py:class:`LineRepositoryInformation` instance to an equivalent
+        :py:class:`Deb822RepositoryInformation` instance.
+
+        :param value: The repository information.
+        """
+        return Deb822RepositoryInformation(
+            [value.repo_type],
+            [value.uri],
+            [value.suite],
+            value.components,
+            value.enabled,
+            value.architectures,
+            value.languages,
+            value.targets,
+            value.pdiffs,
+            value.by_hash,
+            value.allow_insecure,
+            value.allow_weak,
+            value.allow_downgrade_to_insecure,
+            value.trusted,
+            value.signed_by,
+            value.check_valid_until,
+            value.valid_until_min,
+            value.valid_until_max,
+            value.check_date,
+            value.date_max_future
+        )
+
     def to_deb822(self) -> deb822.Deb822:
         def write_if_present(container: deb822.Deb822, key: (SupportsIndex, str), val: str | list[str] | bool | None):
             if val is None:
@@ -370,6 +401,40 @@ class LineRepositoryInformation(_BaseRepositoryInformation):
             repositories.append(repository)
 
         return repositories
+
+    @staticmethod
+    def from_deb822_information(value: Deb822RepositoryInformation) -> list[LineRepositoryInformation]:
+        """
+        Converts a :py:class:`Deb822RepositoryInformation` instance to a set of equivalent
+        :py:class:`LineRepositoryInformation` instances.
+
+        :param value: The repository information.
+        """
+        for repo_type in value.repo_types:
+            for uri in value.uris:
+                for suite in value.suites:
+                    yield LineRepositoryInformation(
+                        repo_type,
+                        uri,
+                        suite,
+                        value.components,
+                        value.enabled,
+                        value.architectures,
+                        value.languages,
+                        value.targets,
+                        value.pdiffs,
+                        value.by_hash,
+                        value.allow_insecure,
+                        value.allow_weak,
+                        value.allow_downgrade_to_insecure,
+                        value.trusted,
+                        value.signed_by,
+                        value.check_valid_until,
+                        value.valid_until_min,
+                        value.valid_until_max,
+                        value.check_date,
+                        value.date_max_future
+                    )
 
     def to_line(self) -> str:
         """
