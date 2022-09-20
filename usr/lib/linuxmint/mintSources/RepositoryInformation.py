@@ -52,7 +52,7 @@ class _BaseRepositoryInformation:
         self.date_max_future = date_max_future
         self.inrelease_path = inrelease_path
 
-    def is_enabled(self):
+    def is_enabled(self) -> bool:
         """
         Determines whether the repository is enabled.
         :return: true if the repository is enabled; otherwise, false.
