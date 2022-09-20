@@ -59,6 +59,7 @@ class _BaseRepositoryInformation:
         Determines whether the repository is enabled.
         :return: true if the repository is enabled; otherwise, false.
         """
+
         if self.enabled is None:
             return True
 
@@ -69,6 +70,7 @@ class Deb822RepositoryInformation(_BaseRepositoryInformation):
     """
     Represents a DEB822-formatted repository, which can contain multiple types, URIs, and suites in one.
     """
+
     def __init__(
             self,
             repo_types: list[str],
@@ -122,6 +124,7 @@ class Deb822RepositoryInformation(_BaseRepositoryInformation):
     def from_deb822(value: deb822.Deb822) -> Deb822RepositoryInformation:
         """
         Parses a :py:class:`RepositoryInformation` instance from the given :py:class:`deb822.Deb822` data.
+
         :param value: The data.
         :return: The repository information.
         """
@@ -130,6 +133,7 @@ class Deb822RepositoryInformation(_BaseRepositoryInformation):
             """
             Gets whitespace-separated values from the given container with the given key. The contained value should be
             a whitespace-separated string, which will be split into its constituent parts.
+
             :param container: The container.
             :param key: The key.
             :return: The values.
@@ -172,6 +176,7 @@ class Deb822RepositoryInformation(_BaseRepositoryInformation):
         Parses a :py:class:`Deb822RepositoryInformation` instance from the given data. The data must be an iterable type
         that produces strings; typically, this means either a list or a file. Lines consisting entirely of whitespace
         will be ignored, as will malformed ones.
+
         :param value: The data.
         :return: The repository information.
         """
@@ -441,6 +446,7 @@ class LineRepositoryInformation(_BaseRepositoryInformation):
         Formats the repository information as a one-line sources.list entry.
         :return: The formatted line.
         """
+
         def _format_options() -> str:
             """
             Formats the set options in the instance as one-line sources.list options.
