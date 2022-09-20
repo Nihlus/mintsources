@@ -221,7 +221,24 @@ class Deb822RepositoryInformation(_BaseRepositoryInformation):
         )
 
     def to_deb822(self) -> deb822.Deb822:
-        def write_if_present(container: deb822.Deb822, key: (SupportsIndex, str), val: str | list[str] | bool | None):
+        """
+        Converts the repository information into a raw DEB822 data block.
+
+        :return: The data block.
+        """
+        def write_if_present(
+            container: deb822.Deb822,
+            key: (SupportsIndex, str), val: str | list[str] | bool | None
+        ) -> None:
+            """
+            Writes the given value with the given key into the given container if the value is not None.
+
+            :param container: The container to insert the key-value pair into.
+            :param key: The key.
+            :param val: The value.
+            :raise TypeError if the value is not one of the supported types.
+            """
+
             if val is None:
                 return
 
