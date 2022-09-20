@@ -338,7 +338,8 @@ class LineRepositoryInformation(_BaseRepositoryInformation):
             valid_until_min,
             valid_until_max,
             check_date,
-            date_max_future, inrelease_path
+            date_max_future,
+            inrelease_path
         )
 
     @staticmethod
@@ -467,7 +468,8 @@ class LineRepositoryInformation(_BaseRepositoryInformation):
             Formats the set options in the instance as one-line sources.list options.
             :return: The formatted options or an empty string if no options are set.
             """
-            options = {k: v for k, v in self.__dict__.items() if k not in {'repo_type', 'uri', 'suite', 'components', 'enabled'} and v is not None}
+            options = {k: v for k, v in self.__dict__.items() if
+                       k not in {'repo_type', 'uri', 'suite', 'components', 'enabled'} and v is not None}
             if len(options) <= 0:
                 return ''
 
